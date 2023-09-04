@@ -33,30 +33,30 @@ const moneyManager = new MoneyManager();
 moneyManager.addMoneyCallback = function (data) {
     ApiConnector.addMoney(data, function (response) {
         if (response.success === false) {
-            moneyManager.setMessage(true, response.data);
+            moneyManager.setMessage(false, response.data);
         } else {
             ProfileWidget.showProfile(response.data);
-            moneyManager.setMessage(false, "Баланс успешно пополнен");
+            moneyManager.setMessage(true, "Баланс успешно пополнен");
         }
     })
 };
 moneyManager.conversionMoneyCallback = function (data) {
     ApiConnector.convertMoney(data, function (response) {
         if (response.success === false) {
-            moneyManager.setMessage(true, response.data);
+            moneyManager.setMessage(false, response.data);
         } else {
             ProfileWidget.showProfile(response.data);
-            moneyManager.setMessage(false, "Валюта успешно сконвертирована");
+            moneyManager.setMessage(true, "Валюта успешно сконвертирована");
         }
     })
 };
 moneyManager.sendMoneyCallback = function (data) {
     ApiConnector.transferMoney(data, function (response) {
         if (response.success === false) {
-            moneyManager.setMessage(true, response.data);
+            moneyManager.setMessage(false, response.data);
         } else {
             ProfileWidget.showProfile(response.data);
-            moneyManager.setMessage(false, "Перевод валюты успешно произведен");
+            moneyManager.setMessage(true, "Перевод валюты успешно произведен");
         }
     })
 };
@@ -72,7 +72,7 @@ ApiConnector.getFavorites(function (response) {
 favoritesWidget.addUserCallback = function (data) {
     ApiConnector.addUserToFavorites(data, function (response) {
         if (response.success === false) {
-            favoritesWidget.setMessage(true, response.data);
+            favoritesWidget.setMessage(false, response.data, "Пользователь не найден");
         } else {
             favoritesWidget.clearTable();
             favoritesWidget.fillTable(response.data);
@@ -84,7 +84,7 @@ favoritesWidget.addUserCallback = function (data) {
 favoritesWidget.removeUserCallback = function (id) {
     ApiConnector.removeUserFromFavorites(id, function (response) {
         if (response.success === false) {
-            favoritesWidget.setMessage(true, response.data);
+            favoritesWidget.setMessage(false, response.data);
         } else {
             favoritesWidget.clearTable();
             favoritesWidget.fillTable(response.data);
