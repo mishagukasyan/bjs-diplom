@@ -33,7 +33,7 @@ const moneyManager = new MoneyManager();
 moneyManager.addMoneyCallback = function (data) {
     ApiConnector.addMoney(data, function (response) {
         if (response.success === false) {
-            moneyManager.setMessage(false, response.data);
+            moneyManager.setMessage(false, response.error);
         } else {
             ProfileWidget.showProfile(response.data);
             moneyManager.setMessage(true, "Баланс успешно пополнен");
@@ -43,7 +43,7 @@ moneyManager.addMoneyCallback = function (data) {
 moneyManager.conversionMoneyCallback = function (data) {
     ApiConnector.convertMoney(data, function (response) {
         if (response.success === false) {
-            moneyManager.setMessage(false, response.data);
+            moneyManager.setMessage(false, response.error);
         } else {
             ProfileWidget.showProfile(response.data);
             moneyManager.setMessage(true, "Валюта успешно сконвертирована");
@@ -53,7 +53,7 @@ moneyManager.conversionMoneyCallback = function (data) {
 moneyManager.sendMoneyCallback = function (data) {
     ApiConnector.transferMoney(data, function (response) {
         if (response.success === false) {
-            moneyManager.setMessage(false, response.data);
+            moneyManager.setMessage(false, response.error);
         } else {
             ProfileWidget.showProfile(response.data);
             moneyManager.setMessage(true, "Перевод валюты успешно произведен");
@@ -72,7 +72,7 @@ ApiConnector.getFavorites(function (response) {
 favoritesWidget.addUserCallback = function (data) {
     ApiConnector.addUserToFavorites(data, function (response) {
         if (response.success === false) {
-            favoritesWidget.setMessage(false, response.data, "Пользователь не найден");
+            favoritesWidget.setMessage(false, response.error, "Пользователь не найден");
         } else {
             favoritesWidget.clearTable();
             favoritesWidget.fillTable(response.data);
@@ -84,7 +84,7 @@ favoritesWidget.addUserCallback = function (data) {
 favoritesWidget.removeUserCallback = function (id) {
     ApiConnector.removeUserFromFavorites(id, function (response) {
         if (response.success === false) {
-            favoritesWidget.setMessage(false, response.data);
+            favoritesWidget.setMessage(false, response.error);
         } else {
             favoritesWidget.clearTable();
             favoritesWidget.fillTable(response.data);
